@@ -1,0 +1,16 @@
+import{c as o,u as b,r as m,j as a}from"./index-CzoeCmji.js";/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const j=o("Delete",[["path",{d:"M10 5a2 2 0 0 0-1.344.519l-6.328 5.74a1 1 0 0 0 0 1.481l6.328 5.741A2 2 0 0 0 10 19h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2z",key:"1yo7s0"}],["path",{d:"m12 9 6 6",key:"anjzzh"}],["path",{d:"m18 9-6 6",key:"1fp51s"}]]);/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const _=o("EyeOff",[["path",{d:"M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49",key:"ct8e1f"}],["path",{d:"M14.084 14.158a3 3 0 0 1-4.242-4.242",key:"151rxh"}],["path",{d:"M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143",key:"13bj9a"}],["path",{d:"m2 2 20 20",key:"1ooewy"}]]);/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const v=o("Eye",[["path",{d:"M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0",key:"1nclc0"}],["circle",{cx:"12",cy:"12",r:"3",key:"1v7zrd"}]]);function E({value:s,onChange:p,maxLength:l,disabled:i,error:y,waitSeconds:k=0}){const{t:r}=b(),[c,u]=m.useState(!1),n=k>0,h=e=>{i||n||s.length>=l||p(s+e)},f=()=>{i||n||p(s.slice(0,-1))};m.useEffect(()=>{const e=t=>{t.key>="0"&&t.key<="9"?h(t.key):t.key==="Backspace"&&(t.preventDefault(),f())};return window.addEventListener("keydown",e),()=>window.removeEventListener("keydown",e)},[s,i,n,l]);const x=["1","2","3","4","5","6","7","8","9","","0","back"];return a.jsxs("div",{className:"stack",style:{alignItems:"center",width:"100%"},children:[a.jsx("div",{className:`pin-dots${c?" pin-dots--text":""}`,role:"status","aria-live":"polite","aria-label":r("privacy.pinUnlockTitle"),children:Array.from({length:Math.max(l,s.length||l)}).map((e,t)=>{const d=t<s.length;return a.jsx("span",{className:`pin-dots__dot${d?" pin-dots__dot--filled":""}`,style:c&&d?{fontWeight:700}:void 0,children:c&&d?s[t]:""},t)})}),a.jsxs("button",{type:"button",className:"btn btn--ghost btn--sm",onClick:()=>u(e=>!e),"aria-pressed":c,children:[c?a.jsx(_,{size:16,"aria-hidden":"true"}):a.jsx(v,{size:16,"aria-hidden":"true"}),r(c?"privacy.pinHide":"privacy.pinShow")]}),a.jsx("div",{className:"keypad",role:"group","aria-label":r("privacy.pinKeypadLabel"),"aria-disabled":i||n,children:x.map((e,t)=>e===""?a.jsx("span",{className:"keypad__key keypad__key--blank"},`blank-${t}`):e==="back"?a.jsx("button",{type:"button",className:"keypad__key",onClick:f,disabled:i||n||s.length===0,"aria-label":r("a11y.pinBackspace"),children:a.jsx(j,{size:24,"aria-hidden":"true"})},"back"):a.jsx("button",{type:"button",className:"keypad__key",onClick:()=>h(e),disabled:i||n,"aria-label":e,children:e},e))}),a.jsx("div",{"aria-live":"assertive",className:"text-sm",style:{minHeight:24},children:n?a.jsx("span",{className:"field__error",children:r("privacy.pinWait",{seconds:k})}):y?a.jsx("span",{className:"field__error",children:y}):null})]})}export{E as P};

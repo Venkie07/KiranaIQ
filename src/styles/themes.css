@@ -1,0 +1,74 @@
+/* ==========================================================================
+   Theme definitions.
+   The active theme is applied via <html data-theme="light|dark">.
+   index.html sets data-theme before first paint (no flash of wrong theme).
+   ========================================================================== */
+
+:root,
+:root[data-theme='light'] {
+  color-scheme: light;
+
+  --color-primary: #6d28d9;
+  --color-primary-hover: #5b21b6;
+  --color-primary-soft: #ede9fe;
+  --color-on-primary: #ffffff;
+
+  --color-background: #ffffff;
+  --color-surface: #f8f7fc;
+  --color-surface-raised: #ffffff;
+
+  --color-text: #1f1635;
+  --color-text-muted: #6b647a;
+  --color-text-inverse: #ffffff;
+
+  --color-border: #e7e1f0;
+  --color-border-strong: #cfc6e0;
+
+  --color-success: #15803d;
+  --color-success-soft: #dcfce7;
+  --color-warning: #b45309;
+  --color-warning-soft: #fef3c7;
+  --color-danger: #b91c1c;
+  --color-danger-soft: #fee2e2;
+  --color-info: #1d4ed8;
+  --color-info-soft: #dbeafe;
+
+  --color-focus: #6d28d9;
+  --focus-ring: 0 0 0 3px rgba(109, 40, 217, 0.35);
+  --shadow-sm: 0 1px 2px rgba(31, 22, 53, 0.06);
+  --shadow-md: 0 4px 12px rgba(31, 22, 53, 0.08);
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --color-primary: #a78bfa;
+  --color-primary-hover: #c4b5fd;
+  --color-primary-soft: #2b2150;
+  --color-on-primary: #17103a;
+
+  --color-background: #0b1020;
+  --color-surface: #111a30;
+  --color-surface-raised: #18233d;
+
+  --color-text: #f4f3ff;
+  --color-text-muted: #b6bed3;
+  --color-text-inverse: #0b1020;
+
+  --color-border: #293653;
+  --color-border-strong: #3b4b70;
+
+  --color-success: #4ade80;
+  --color-success-soft: #10331f;
+  --color-warning: #fbbf24;
+  --color-warning-soft: #3a2a08;
+  --color-danger: #f87171;
+  --color-danger-soft: #3d1416;
+  --color-info: #93c5fd;
+  --color-info-soft: #12254a;
+
+  --color-focus: #a78bfa;
+  --focus-ring: 0 0 0 3px rgba(167, 139, 250, 0.4);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.45);
+}

@@ -1,0 +1,11 @@
+import{c as o,j as s,u as n,T as i}from"./index-CzoeCmji.js";/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const d=o("PackageCheck",[["path",{d:"m16 16 2 2 4-4",key:"gfu2re"}],["path",{d:"M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14",key:"e7tb2h"}],["path",{d:"m7.5 4.27 9 5.15",key:"1c824w"}],["polyline",{points:"3.29 7 12 12 20.71 7",key:"ousv84"}],["line",{x1:"12",x2:"12",y1:"22",y2:"12",key:"a4e8g8"}]]);/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const g=o("PackageX",[["path",{d:"M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14",key:"e7tb2h"}],["path",{d:"m7.5 4.27 9 5.15",key:"1c824w"}],["polyline",{points:"3.29 7 12 12 20.71 7",key:"ousv84"}],["line",{x1:"12",x2:"12",y1:"22",y2:"12",key:"a4e8g8"}],["path",{d:"m17 13 5 5m-5 0 5-5",key:"im3w4b"}]]);function u({status:a}){const{t:e}=n(),l={ok:{cls:"badge--ok",label:e("products.stockStatusOk"),Icon:d},low:{cls:"badge--low",label:e("products.stockStatusLow"),Icon:i},out:{cls:"badge--out",label:e("products.stockStatusOut"),Icon:g}},{cls:c,label:t,Icon:r}=l[a];return s.jsxs("span",{className:`badge ${c}`,children:[s.jsx(r,{size:13,"aria-hidden":"true"}),t]})}function k({risk:a}){const{t:e}=n(),l={expired:{cls:"badge--danger",label:e("expiry.expired")},critical:{cls:"badge--danger",label:e("expiry.riskCritical")},warning:{cls:"badge--low",label:e("expiry.riskWarning")},upcoming:{cls:"badge--neutral",label:e("expiry.upcoming")}},{cls:c,label:t}=l[a];return s.jsx("span",{className:`badge ${c}`,children:t})}function m(){const{t:a}=n();return s.jsx("span",{className:"badge badge--demo",title:a("settings.clearDemoHint"),children:a("common.demoBadge")})}function b({title:a,icon:e,actions:l}){return s.jsxs("header",{className:"page-header",children:[s.jsxs("div",{className:"page-header__title",children:[e,s.jsx("h1",{children:a})]}),l?s.jsx("div",{className:"page-header__actions",children:l}):null]})}export{m as D,k as E,b as P,u as S};

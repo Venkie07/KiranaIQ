@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="KiranaIQ — offline-first multilingual inventory and restocking assistant for small kirana shops. Smart Stock. Less Waste. Better Business."
+    />
+    <meta name="theme-color" content="#6D28D9" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+    <!-- Apply the saved theme before first paint to avoid a flash of the wrong theme. -->
+    <script>
+      (function () {
+        try {
+          var pref = localStorage.getItem('kiranaiq.themePreference') || 'system';
+          var dark =
+            pref === 'dark' ||
+            (pref === 'system' &&
+              window.matchMedia &&
+              window.matchMedia('(prefers-color-scheme: dark)').matches);
+          document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+        } catch (e) {
+          document.documentElement.dataset.theme = 'light';
+        }
+      })();
+    </script>
+    <title>KiranaIQ</title>
+    <script type="module" crossorigin src="/assets/index-CzoeCmji.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Bm7IhGYW.css">
+  <link rel="manifest" href="/manifest.webmanifest"></head>
+  <body>
+    <div id="root"></div>
+    <noscript>KiranaIQ needs JavaScript to run. / KiranaIQ இயங்க JavaScript தேவை. / KiranaIQ को चलाने के लिए JavaScript चाहिए।</noscript>
+  </body>
+</html>

@@ -1,0 +1,90 @@
+/* ==========================================================================
+   KiranaIQ design tokens (light theme is the default)
+   All theme-dependent colors live in themes.css as CSS custom properties.
+   Components must only reference var(--color-*) — never hardcoded colors.
+   ========================================================================== */
+
+:root {
+  /* Brand */
+  --color-primary: #6d28d9;
+  --color-primary-hover: #5b21b6;
+  --color-primary-soft: #ede9fe;
+  --color-on-primary: #ffffff;
+
+  /* Surfaces */
+  --color-background: #ffffff;
+  --color-surface: #f8f7fc;
+  --color-surface-raised: #ffffff;
+
+  /* Text */
+  --color-text: #1f1635;
+  --color-text-muted: #6b647a;
+  --color-text-inverse: #ffffff;
+
+  /* Lines */
+  --color-border: #e7e1f0;
+  --color-border-strong: #cfc6e0;
+
+  /* Status */
+  --color-success: #15803d;
+  --color-success-soft: #dcfce7;
+  --color-warning: #b45309;
+  --color-warning-soft: #fef3c7;
+  --color-danger: #b91c1c;
+  --color-danger-soft: #fee2e2;
+  --color-info: #1d4ed8;
+  --color-info-soft: #dbeafe;
+
+  /* Focus ring (contrast-checked against both themes) */
+  --color-focus: #6d28d9;
+  --focus-ring: 0 0 0 3px rgba(109, 40, 217, 0.35);
+
+  /* Spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-full: 999px;
+
+  /* Shadows (restrained) */
+  --shadow-sm: 0 1px 2px rgba(31, 22, 53, 0.06);
+  --shadow-md: 0 4px 12px rgba(31, 22, 53, 0.08);
+
+  /* Typography — system stack with Tamil/Devanagari fallbacks, no web fonts */
+  --font-sans:
+    system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Noto Sans Tamil', 'Noto Sans Devanagari', 'Latha', 'Nirmala UI', 'Mangal', 'Kokila',
+    'Noto Sans Bengali', sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: 2.125rem;
+
+  /* Layout */
+  --layout-max-width: 1120px;
+  --bottom-nav-height: 64px;
+  --touch-target: 48px;
+
+  --transition-fast: 140ms ease;
+  --transition-base: 220ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: 0ms;
+    --transition-base: 0ms;
+  }
+}

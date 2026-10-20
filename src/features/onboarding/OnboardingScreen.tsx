@@ -64,11 +64,13 @@ export function OnboardingScreen() {
                 aria-pressed={language === lang.code}
                 onClick={() => setLanguage(lang.code)}
               >
-                {lang.code === 'en'
-                  ? t('onboarding.languageEnglish')
-                  : lang.code === 'ta'
-                    ? t('onboarding.languageTamil')
-                    : t('onboarding.languageHindi')}
+                {lang.code === 'kn'
+                  ? lang.label
+                  : lang.code === 'en'
+                    ? t('onboarding.languageEnglish')
+                    : lang.code === 'ta'
+                      ? t('onboarding.languageTamil')
+                      : t('onboarding.languageHindi')}
               </button>
             ))}
           </div>

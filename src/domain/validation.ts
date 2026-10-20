@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import type { Language, MovementType, ProductCategory, ThemePreference, Unit } from './types';
 
-const languageSchema = z.enum(['en', 'ta', 'hi']);
+const languageSchema = z.enum(['en', 'ta', 'hi', 'kn']);
 const categorySchema = z.enum([
   'rice-grains',
   'snacks',

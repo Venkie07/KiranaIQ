@@ -11,7 +11,7 @@
  * - Records seeded by demo data carry `demo: true`.
  */
 
-export type Language = 'en' | 'ta' | 'hi';
+export type Language = 'en' | 'ta' | 'hi' | 'kn';
 export type ThemePreference = 'light' | 'dark' | 'system';
 export type CurrencyCode = 'INR';
 

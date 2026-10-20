@@ -5,11 +5,13 @@ import type { Language } from '@/domain/types';
 import en from './locales/en/translation.json';
 import ta from './locales/ta/translation.json';
 import hi from './locales/hi/translation.json';
+import kn from './locales/kn/translation.json';
 
 export const SUPPORTED_LANGUAGES: { code: Language; label: string }[] = [
   { code: 'en', label: 'English' },
   { code: 'ta', label: 'தமிழ்' },
   { code: 'hi', label: 'हिन्दी' },
+  { code: 'kn', label: 'ಕನ್ನಡ' },
 ];
 
 /** Dev-time warning when a key is missing in the active language. */
@@ -28,6 +30,7 @@ export function initI18n(language: Language): typeof i18n {
         en: { translation: en },
         ta: { translation: ta },
         hi: { translation: hi },
+        kn: { translation: kn },
       },
       lng: language,
       fallbackLng: 'en',

@@ -11,7 +11,7 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
-const locales = ['en', 'ta', 'hi'];
+const locales = ['en', 'ta', 'hi','kn'];
 
 function flatten(obj, prefix = '', out = new Set()) {
   for (const [key, value] of Object.entries(obj)) {

@@ -105,25 +105,40 @@ export function buildRestockPlan(input: RestockEngineInput): RestockPlan {
     const raw = Math.max(0, Math.ceil(expectedDemand + safetyStock - usable));
 
     const reasons: RestockReason[] = [];
-    if (usable <= product.reorderThreshold) reasons.push('low-stock');
+    if (usable <= 0) reasons.push('low-stock'); // Mark OOS as low-stock for consistency
+    else if (usable <= product.reorderThreshold) reasons.push('low-stock');
     if (usable <= Math.ceil(expectedDemand)) reasons.push('stockout-risk');
     if (!insufficientHistory && demand.perDay >= 2) reasons.push('high-sales');
     if (insufficientHistory) reasons.push('insufficient-history');
     if (expiredQty > 0) reasons.push('expiry-concern');
 
     let recommended = raw;
-    if (recommended <= 0 && usable > 0 && usable <= product.reorderThreshold) {
-      // Still top up to just above the threshold even if demand model says no.
-      recommended = product.reorderThreshold - usable + 1;
+    if (recommended <= 0 && usable <= product.reorderThreshold) {
+      // If we are below threshold, we MUST restock even if forecast is low.
+      // Target: Top up to (threshold + safety stock) to prevent immediate re-trigger.
+      recommended = Math.max(
+        product.reorderThreshold - usable + 1,
+        Math.ceil(safetyStock)
+      );
       if (!reasons.includes('low-stock')) reasons.push('low-stock');
     }
     if (recommended <= 0) return null;
 
-    // Score: urgency of running out first.
-    const daysOfCover = dailyDemand > 0 ? usable / dailyDemand : 999;
-    let score = 100 - Math.min(99, daysOfCover * 4);
-    if (usable <= 0) score += 60;
-    else if (usable <= product.reorderThreshold) score += 30;
+    // Score: Urgency of running out.
+    // Tier 1: Out of Stock (highest priority)
+    // Tier 2: Below Reorder Threshold
+    // Tier 3: Forecasted based on demand
+    let score = 0;
+    if (usable <= 0) {
+      score = 200; // Absolute priority
+    } else if (usable <= product.reorderThreshold) {
+      score = 150; // High priority
+    } else {
+      const daysOfCover = dailyDemand > 0 ? usable / dailyDemand : 999;
+      score = 100 - Math.min(99, daysOfCover * 4);
+    }
+
+    // Additional modifiers
     if (!insufficientHistory && demand.perDay >= 2) score += 15;
     if (insufficientHistory) score -= 10;
     if (variant.costPrice == null || variant.costPrice <= 0) score -= 1000;

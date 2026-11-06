@@ -4,6 +4,45 @@ This document records the implementation work completed across the current
 KiranaIQ development sessions. It supplements the existing feature and
 architecture documents under this directory.
 
+## 2026-11-06 - Restock Quantity and Purchase Calculations
+
+### Restock recommendations
+
+- Prioritized out-of-stock items ahead of low-stock and demand-based recommendations.
+- Treats zero usable stock and items below the reorder threshold as low-stock cases.
+- Strengthened threshold-based restocking so that low-stock products receive enough
+  quantity to cover the reorder threshold and safety-stock requirement.
+- Added separate urgency scoring tiers: out of stock, below reorder threshold, and
+  forecast-based demand.
+
+### Live quantity and purchase totals
+
+- Reworked the restock preview to calculate line totals and the estimated purchase
+  total from the latest quantity and unit-cost values.
+- Added safe quantity updates bounded from 0 to 9,999 with integer values.
+- Kept total spend and remaining budget synchronized after quantity changes,
+  recalculation, draft save, and plan confirmation.
+- Prevented invalid zero or negative budgets and protected draft and confirmation
+  actions while a restock operation is already in progress.
+- Updated confirmed and preview screens to display the derived purchase totals
+  instead of relying only on stale plan totals.
+
+### Files changed
+
+| File | Change |
+|---|---|
+| `src/domain/restock.ts` | Updated restock urgency, recommendation, and threshold logic |
+| `src/features/restock/RestockScreen.tsx` | Added live quantity calculations, purchase totals, budget validation, and submission guards |
+
+### Verification
+
+- The latest restock implementation was committed as `01bf2256`
+  (`Fix restock quantity and purchase calculations`).
+- Run `npm run typecheck` and `npm run build` for final source validation.
+- Generated production assets under `docs/` were also refreshed by the commit.
+
+---
+
 ## 2026-11-06 - Cross-page Alignment and Responsiveness
 
 - Added shared cross-page alignment rules for page headers, cards, definition

@@ -104,6 +104,7 @@
     "lowStockItem": "सिर्फ़ {{count}} बचे",
     "expiringItem": "{{days}} दिन में समाप्त",
     "expiredItem": "पहले ही समाप्त",
+    "outOfStock": "स्टॉक खत्म",
     "offlineBanner": "आप ऑफ़लाइन हैं। सब कुछ चलता है और इसी डिवाइस पर सेव होता है।"
   },
   "products": {
@@ -129,6 +130,11 @@
     "viewDetails": "विवरण देखें",
     "empty": "अभी कोई सामान नहीं है। पहला सामान जोड़ें।",
     "emptySearch": "खोज से मेल खाता सामान नहीं मिला।",
+    "createNewProduct": "नया सामान बनाएँ",
+    "deleteTitle": "सामान हटाएँ",
+    "deleteBody": "{{name}} हटाएँ? इसे वापस नहीं किया जा सकता।",
+    "deleteSuccess": "सामान हटाया गया।",
+    "itemsFound": "{{count}} सामान मिले",
     "variantCount": "{{count}} पैक साइज़",
     "perUnit": "प्रति {{unit}}"
   },
@@ -141,6 +147,8 @@
     "localDisplayNameHint": "वैकल्पिक। आपका असली नाम कभी नहीं बदलेगा।",
     "category": "श्रेणी",
     "unit": "इकाई",
+    "variantsTitle": "सामान के पैक विकल्प",
+    "variantIndex": "विकल्प {{index}}",
     "variantName": "पैक साइज़ लेबल",
     "variantNamePlaceholder": "जैसे 1 किलो पैक",
     "packSize": "पैक साइज़ ({{unit}} में)",
@@ -160,6 +168,9 @@
   },
   "productDetail": {
     "productInfo": "सामान की जानकारी",
+    "financials": "वित्तीय विवरण",
+    "unitProfit": "प्रति इकाई लाभ",
+    "marginPercentage": "लाभ मार्जिन",
     "variants": "पैक साइज़",
     "currentStock": "अभी का स्टॉक",
     "usableStock": "उपयोग योग्य स्टॉक",
@@ -196,7 +207,17 @@
     "stockAfter": "बिक्री के बाद स्टॉक: {{count}}",
     "quantityMinus": "मात्रा घटाएँ",
     "quantityPlus": "मात्रा बढ़ाएँ",
-    "clearCart": "टोकरी साफ़ करें"
+    "clearCart": "टोकरी साफ़ करें",
+    "historyTitle": "बिक्री इतिहास",
+    "historySearchPlaceholder": "उत्पाद या लेनदेन ID से खोजें",
+    "historySource": "लेनदेन स्रोत",
+    "historyReal": "दर्ज बिक्री",
+    "historyDateFrom": "शुरुआती तारीख",
+    "historyDateTo": "अंतिम तारीख",
+    "historyTransaction": "लेनदेन ID",
+    "historyEmpty": "अब तक कोई बिक्री दर्ज नहीं हुई",
+    "historyEmptyBody": "दर्ज बिक्री यहाँ दिखाई देंगी।",
+    "historyNoResults": "वर्तमान फ़िल्टर से कोई बिक्री मेल नहीं खाती।"
   },
   "purchases": {
     "receiveStock": "स्टॉक प्राप्त करें",
@@ -302,6 +323,8 @@
     "draftPlan": "ड्राफ्ट योजना सहेजें",
     "planSaved": "ड्राफ्ट योजना इस डिवाइस पर सेव हो गई।",
     "confirmPlan": "योजना पक्की करें",
+    "planConfirmedTitle": "योजना पक्की हुई",
+    "planConfirmedNote": "कोई ऑर्डर अपने आप नहीं लगता।",
     "planConfirmed": "योजना पक्की हुई। कोई ऑर्डर अपने आप नहीं लगता।",
     "assumptions": "गणना कैसे हुई",
     "assumptionDemand": "पिछले {{days}} दिनों की औसत रोज़ाना बिक्री",
@@ -316,6 +339,8 @@
   },
   "settings": {
     "title": "सेटिंग्स",
+    "general": "सामान्य",
+    "defaults": "डिफ़ॉल्ट",
     "language": "भाषा",
     "theme": "दिखावट",
     "currency": "मुद्रा",
@@ -489,7 +514,9 @@
     "emptyTitle": "अभी कुछ नहीं है",
     "errorTitle": "कुछ गड़बड़ हुई",
     "noResults": "कोई नतीजा नहीं",
-    "retry": "फिर से कोशिश करें"
+    "retry": "फिर से कोशिश करें",
+    "notFoundTitle": "सामान नहीं मिला",
+    "notFoundBody": "आप जिस सामान की खोज कर रहे हैं वह नहीं मिला। हो सकता है कि उसे हटाया या स्थानांतरित किया गया हो।"
   },
   "categories": {
     "rice-grains": "चावल और अनाज",

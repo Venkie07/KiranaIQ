@@ -147,54 +147,64 @@ class LocalProductService implements ProductService {
   }
 
   async getDetail(productId: string): Promise<ProductDetail | null> {
-    const product = await db.products.get(productId);
-    if (!product) return null;
-    const [variants, movements, sales, batches] = await Promise.all([
-      db.variants.where('productId').equals(productId).toArray(),
-      db.stockMovements.where('productId').equals(productId).reverse().sortBy('timestamp'),
-      db.sales.toArray(),
-      db.batches.where('productId').equals(productId).toArray(),
-    ]);
-    const now = new Date();
-    const stockRows: ProductDetail['variants'] = variants.map((variant) => {
-      const totalStock = movements
-        .filter((m) => m.variantId === variant.id)
-        .reduce((s, m) => s + m.signedQuantity, 0);
-      return {
-        variant,
-        product,
-        totalStock,
-        usableStock: computeUsableStock(totalStock, batches, variant.id, now),
-        expiredQuantity: expiredBatchQuantity(batches, variant.id, now),
-      };
-    });
+    console.log(`[ProductService] Fetching detail for ID: ${productId}`);
 
-    const variantIds = new Set(variants.map((v) => v.id));
-    const relatedSales = sales
-      .filter((s) => s.items.some((i) => variantIds.has(i.variantId)))
-      .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
-      .slice(0, 50);
+    // Try multiple times with a small delay for eventual consistency in IndexedDB
+    for (let i = 0; i < 5; i++) {
+      const product = await db.products.get(productId);
+      if (product) {
+        console.log(`[ProductService] Found product: ${product.name} (${productId})`);
+        const [variants, movements, sales, batches] = await Promise.all([
+          db.variants.where('productId').equals(productId).toArray(),
+          db.stockMovements.where('productId').equals(productId).reverse().sortBy('timestamp'),
+          db.sales.toArray(),
+          db.batches.where('productId').equals(productId).toArray(),
+        ]);
+        const now = new Date();
+        const stockRows: ProductDetail['variants'] = variants.map((variant) => {
+          const totalStock = movements
+            .filter((m) => m.variantId === variant.id)
+            .reduce((s, m) => s + m.signedQuantity, 0);
+          return {
+            variant,
+            product,
+            totalStock,
+            usableStock: computeUsableStock(totalStock, batches, variant.id, now),
+            expiredQuantity: expiredBatchQuantity(batches, variant.id, now),
+          };
+        });
 
-    const variantNameById = new Map(variants.map((v) => [v.id, v.name]));
-    const relatedBatches = batches.map((b) => ({
-      ...b,
-      productName: product.name,
-      variantName: variantNameById.get(b.variantId) ?? '',
-    }));
+        const variantIds = new Set(variants.map((v) => v.id));
+        const relatedSales = sales
+          .filter((s) => s.items.some((i) => variantIds.has(i.variantId)))
+          .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+          .slice(0, 50);
 
-    return {
-      product,
-      variants: stockRows,
-      movements: movements.slice(0, 100),
-      sales: relatedSales,
-      batches: relatedBatches,
-    };
+        const variantNameById = new Map(variants.map((v) => [v.id, v.name]));
+        const relatedBatches = batches.map((b) => ({
+          ...b,
+          productName: product.name,
+          variantName: variantNameById.get(b.variantId) ?? '',
+        }));
+
+        return {
+          product,
+          variants: stockRows,
+          movements: movements.slice(0, 100),
+          sales: relatedSales,
+          batches: relatedBatches,
+        };
+      }
+      console.log(`[ProductService] Attempt ${i + 1} failed to find ${productId}, retrying...`);
+      await new Promise(resolve => setTimeout(resolve, 200));
+    }
+    console.error(`[ProductService] Record NOT FOUND after 5 attempts: ${productId}`);
+    return null;
   }
 
   async create(input: NewProductInput): Promise<string> {
     const now = nowISO();
     const productId = newId('prod');
-    const variantId = newId('var');
     const localDisplayNames = input.localDisplayNames
       ? Object.fromEntries(Object.entries(input.localDisplayNames).filter(([, v]) => v))
       : undefined;
@@ -212,37 +222,45 @@ class LocalProductService implements ProductService {
       createdAt: now,
       updatedAt: now,
     };
-    const variant: ProductVariant = {
-      id: variantId,
-      productId,
-      name: input.variant.name.trim(),
-      packSize: input.variant.packSize,
-      unit: input.unit,
-      sellingPrice: input.variant.sellingPrice,
-      costPrice: input.variant.costPrice ?? null,
-      barcode: input.variant.barcode?.trim() || undefined,
-      active: true,
-      createdAt: now,
-      updatedAt: now,
-    };
-    const movements: StockMovement[] = [];
-    if (input.initialStock > 0) {
-      movements.push({
-        id: newId('mov'),
-        variantId,
+
+    const variantRecords: ProductVariant[] = [];
+    const movementRecords: StockMovement[] = [];
+
+    for (const vInput of input.variants) {
+      const variantId = newId('var');
+      const variant: ProductVariant = {
+        id: variantId,
         productId,
-        movementType: 'opening',
-        signedQuantity: input.initialStock,
-        unitCost: input.variant.costPrice ?? null,
-        timestamp: now,
-        reason: 'opening',
-      });
+        name: vInput.name.trim(),
+        packSize: vInput.packSize,
+        unit: input.unit,
+        sellingPrice: vInput.sellingPrice,
+        costPrice: vInput.costPrice ?? null,
+        barcode: vInput.barcode?.trim() || undefined,
+        active: true,
+        createdAt: now,
+        updatedAt: now,
+      };
+      variantRecords.push(variant);
+
+      if (vInput.initialStock > 0) {
+        movementRecords.push({
+          id: newId('mov'),
+          variantId,
+          productId,
+          movementType: 'opening',
+          signedQuantity: vInput.initialStock,
+          unitCost: vInput.costPrice ?? null,
+          timestamp: now,
+          reason: 'opening',
+        });
+      }
     }
 
     await db.transaction('rw', [db.products, db.variants, db.stockMovements], async () => {
       await db.products.add(product);
-      await db.variants.add(variant);
-      if (movements.length) await db.stockMovements.bulkAdd(movements);
+      await db.variants.bulkAdd(variantRecords);
+      if (movementRecords.length) await db.stockMovements.bulkAdd(movementRecords);
     });
     return productId;
   }
@@ -257,6 +275,57 @@ class LocalProductService implements ProductService {
     const existing = await db.variants.get(variantId);
     if (!existing) throw new ServiceError('errors.notFound');
     await db.variants.put({ ...existing, ...patch, id: variantId, updatedAt: nowISO() });
+  }
+
+  async addVariant(productId: string, variant: Omit<ProductVariant, 'id' | 'createdAt' | 'updatedAt'>): Promise<string> {
+    const variantId = newId('var');
+    const now = nowISO();
+    await db.variants.add({
+      ...variant,
+      id: variantId,
+      productId,
+      createdAt: now,
+      updatedAt: now,
+    });
+    return variantId;
+  }
+
+  async removeVariant(variantId: string): Promise<void> {
+    const variant = await db.variants.get(variantId);
+    if (!variant) throw new ServiceError('errors.notFound');
+
+    // We only hard-delete if there are no movements linked to this variant
+    const hasMovements = await db.stockMovements.where('variantId').equals(variantId).count() > 0;
+    if (hasMovements) {
+      // Soft delete
+      await db.variants.update(variantId, { active: false, updatedAt: nowISO() });
+    } else {
+      // Hard delete
+      await db.variants.delete(variantId);
+    }
+  }
+
+  async delete(productId: string): Promise<{ archived: boolean; deleted: boolean }> {
+    const product = await db.products.get(productId);
+    if (!product) throw new ServiceError('errors.notFound');
+
+    const hasHistory = await db.stockMovements.where('productId').equals(productId).count() > 0;
+
+    if (hasHistory) {
+      // Soft delete: Archive the product to preserve ledger integrity
+      await db.products.update(productId, { active: false, updatedAt: nowISO() });
+      return { archived: true, deleted: false };
+    }
+
+    // Hard delete: Safe to remove if no history exists
+    await db.transaction('rw', [db.products, db.variants, db.stockMovements, db.batches], async () => {
+      await db.variants.where('productId').equals(productId).delete();
+      await db.stockMovements.where('productId').equals(productId).delete();
+      await db.batches.where('productId').equals(productId).delete();
+      await db.products.delete(productId);
+    });
+
+    return { archived: false, deleted: true };
   }
 }
 
@@ -333,8 +402,12 @@ class LocalSalesService implements SalesService {
     return sale;
   }
 
-  async list(limit = 50): Promise<Sale[]> {
-    const sales = await db.sales.orderBy('createdAt').reverse().limit(limit).toArray();
+  async list(limit?: number): Promise<Sale[]> {
+    const ordered = db.sales.orderBy('createdAt').reverse();
+    const sales =
+      limit == null
+        ? await ordered.toArray()
+        : await ordered.limit(limit).toArray();
     return sales;
   }
 }

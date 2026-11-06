@@ -104,6 +104,7 @@
     "lowStockItem": "மீதம் {{count}} மட்டுமே",
     "expiringItem": "{{days}} நாட்களில் காலாவதி",
     "expiredItem": "ஏற்கனவே காலாவதி",
+    "outOfStock": "சரக்கு இல்லை",
     "offlineBanner": "நீங்கள் ஆஃப்லைனில் உள்ளீர்கள். எல்லாம் இந்தச் சாதனத்தில் வேலை செய்து சேமிக்கிறது."
   },
   "products": {
@@ -129,6 +130,11 @@
     "viewDetails": "விவரங்கள் காண்க",
     "empty": "இன்னும் பொருள்கள் இல்லை. முதல் பொருளைச் சேருங்கள்.",
     "emptySearch": "தேடலுக்கு பொருந்தும் பொருள்கள் இல்லை.",
+    "createNewProduct": "புதிய பொருளை உருவாக்கு",
+    "deleteTitle": "பொருளை நீக்கு",
+    "deleteBody": "{{name}}-ஐ நீக்கவா? இதை மாற்ற முடியாது.",
+    "deleteSuccess": "பொருள் நீக்கப்பட்டது.",
+    "itemsFound": "{{count}} பொருள்கள் கிடைத்தன",
     "variantCount": "{{count}} பேக் அளவு",
     "perUnit": "ஒரு {{unit}} விலை"
   },
@@ -141,6 +147,8 @@
     "localDisplayNameHint": "விருப்பம். உங்கள் அசல் பெயர் மாற்றப்படாது.",
     "category": "வகை",
     "unit": "அலகு",
+    "variantsTitle": "பொருள் வகைகள்",
+    "variantIndex": "வகை {{index}}",
     "variantName": "பேக் அளவு குறியீடு",
     "variantNamePlaceholder": "எ.கா. 1 கிலோ பேக்",
     "packSize": "பேக் அளவு ({{unit}}-ல்)",
@@ -160,6 +168,9 @@
   },
   "productDetail": {
     "productInfo": "பொருள் விவரங்கள்",
+    "financials": "நிதி விவரங்கள்",
+    "unitProfit": "ஒரு அலகுக்கான லாபம்",
+    "marginPercentage": "லாப விகிதம்",
     "variants": "பேக் அளவுகள்",
     "currentStock": "தற்போதைய சரக்கு",
     "usableStock": "பயன்படுத்தக்கூடிய சரக்கு",
@@ -196,7 +207,17 @@
     "stockAfter": "விற்பனைக்குப் பின் சரக்கு: {{count}}",
     "quantityMinus": "எண்ணிக்கையைக் குறை",
     "quantityPlus": "எண்ணிக்கையைக் கூட்டு",
-    "clearCart": "கூடையைக் காலி செய்"
+    "clearCart": "கூடையைக் காலி செய்",
+    "historyTitle": "விற்பனை வரலாறு",
+    "historySearchPlaceholder": "பொருள் அல்லது பரிவர்த்தனை ID மூலம் தேடு",
+    "historySource": "பரிவர்த்தனை வகை",
+    "historyReal": "பதிவு செய்யப்பட்ட விற்பனைகள்",
+    "historyDateFrom": "தொடக்க தேதி",
+    "historyDateTo": "இறுதி தேதி",
+    "historyTransaction": "பரிவர்த்தனை ID",
+    "historyEmpty": "இன்னும் விற்பனை பதிவு இல்லை",
+    "historyEmptyBody": "பதிவு செய்யப்பட்ட விற்பனைகள் இங்கே தோன்றும்.",
+    "historyNoResults": "தற்போதைய வடிகட்டிகளுடன் விற்பனைகள் பொருந்தவில்லை."
   },
   "purchases": {
     "receiveStock": "சரக்கு பெறு",
@@ -302,6 +323,8 @@
     "draftPlan": "வரைவு திட்டமாகச் சேமி",
     "planSaved": "வரைவு திட்டம் இந்தச் சாதனத்தில் சேமிக்கப்பட்டது.",
     "confirmPlan": "திட்டத்தை உறுதிப்படுத்து",
+    "planConfirmedTitle": "திட்டம் உறுதிப்படுத்தப்பட்டது",
+    "planConfirmedNote": "எந்த ஆர்டரும் தானாக இடப்படாது.",
     "planConfirmed": "திட்டம் உறுதிப்படுத்தப்பட்டது. எந்த ஆர்டரும் தானாக இடப்படாது.",
     "assumptions": "இது எப்படிக் கணக்கிடப்பட்டது",
     "assumptionDemand": "கடந்த {{days}} நாட்களின் சராசரி தினசரி விற்பனை",
@@ -316,6 +339,8 @@
   },
   "settings": {
     "title": "அமைப்புகள்",
+    "general": "பொது",
+    "defaults": "இயல்புநிலைகள்",
     "language": "மொழி",
     "theme": "தோற்றம்",
     "currency": "நாணயம்",
@@ -489,7 +514,9 @@
     "emptyTitle": "இன்னும் எதுவும் இல்லை",
     "errorTitle": "ஏதோ தவறு நடந்தது",
     "noResults": "முடிவுகள் இல்லை",
-    "retry": "மீண்டும் முயற்சி"
+    "retry": "மீண்டும் முயற்சி",
+    "notFoundTitle": "பொருள் கிடைக்கவில்லை",
+    "notFoundBody": "நீங்கள் தேடும் பொருள் கிடைக்கவில்லை. அது நீக்கப்பட்டிருக்கலாம் அல்லது மாற்றப்பட்டிருக்கலாம்."
   },
   "categories": {
     "rice-grains": "அரிசி & தானியங்கள்",

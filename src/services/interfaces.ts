@@ -61,14 +61,14 @@ export interface NewProductInput {
   reorderThreshold: number;
   expiryTracked: boolean;
   supplier?: string;
-  variant: {
+  variants: {
     name: string;
     packSize: number;
     sellingPrice: number; // paise
     costPrice?: number | null; // paise
     barcode?: string;
-  };
-  initialStock: number;
+    initialStock: number;
+  }[];
 }
 
 export interface ProductService {
@@ -77,6 +77,9 @@ export interface ProductService {
   create(input: NewProductInput): Promise<string>;
   update(productId: string, patch: Partial<Product>): Promise<void>;
   updateVariant(variantId: string, patch: Partial<ProductVariant>): Promise<void>;
+  delete(productId: string): Promise<{ archived: boolean; deleted: boolean }>;
+  addVariant(productId: string, variant: Omit<ProductVariant, 'id' | 'createdAt' | 'updatedAt'>): Promise<string>;
+  removeVariant(variantId: string): Promise<void>;
 }
 type ProductFilterLike = ProductListFilter;
 

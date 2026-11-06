@@ -13,6 +13,12 @@ export default defineConfig({
     VitePWA({
       registerType: 'prompt',
       injectRegister: null,
+      strategies: 'injectManifest',
+      srcDir: 'src',
+      filename: 'sw.ts',
+      injectManifest: {
+        globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
+      },
       includeAssets: ['favicon.svg', 'offline.html'],
       manifest: {
         name: 'KiranaIQ — Inventory & Restocking Assistant',
@@ -37,15 +43,6 @@ export default defineConfig({
             purpose: 'maskable',
           },
         ],
-      },
-      workbox: {
-        globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
-        // Keep the offline fallback page available even without the app shell.
-        additionalManifestEntries: [{ url: 'offline.html', revision: null }],
-        navigateFallback: '/index.html',
-        navigateFallbackDenylist: [/^\/offline\.html$/],
-        cleanupOutdatedCaches: true,
-        clientsClaim: true,
       },
       devOptions: { enabled: false },
     }),

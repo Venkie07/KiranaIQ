@@ -76,6 +76,7 @@
   /* Layout */
   --layout-max-width: 1120px;
   --bottom-nav-height: 64px;
+  --content-bottom-clearance: calc(var(--bottom-nav-height) + env(safe-area-inset-bottom) + var(--space-4));
   --touch-target: 48px;
 
   --transition-fast: 140ms ease;

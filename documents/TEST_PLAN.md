@@ -59,6 +59,7 @@
 | `ProductsScreen` | Search/filter/sort, add/edit navigation, card/table switch (CSS) |
 | `ProductFormScreen` | Validation (required, ranges), edit prefill, create/edit save, values preserved on error |
 | `RecordSaleScreen` | Cart add/remove, quantity stepper, review step, confirm (stock validation), receipt, duplicate guard |
+| `SalesHistoryScreen` | Search, source/date filters, demo badge, expandable transaction details, empty/no-results states, Dashboard navigation |
 | `ReceivePurchaseScreen` | Form validation, batch/expiry optional, review, confirm, stock increment |
 | `MovementsScreen` | Filters, correction dialog (delta vs ledger total) |
 | `ExpiryScreen` | Three groups, window selector persists, risk badges |
@@ -133,3 +134,7 @@ All must pass before merge.
 - [ ] Backup: export → clear DB → import → verify counts
 - [ ] Language: en → ta → hi → en (all screens)
 - [ ] Theme: light → dark → system (OS toggle)
+- [ ] Sales: Dashboard View all → Sales History → refresh → back → forward
+- [ ] Alignment: verify page headers, cards, grids, filters, icons, badges, action buttons, and list rows at desktop and mobile widths
+- [ ] Mobile navigation: verify content clearance and fixed bottom navigation on every main screen
+- [ ] Sales filters: verify three-column desktop alignment and single-column mobile wrapping

@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { AlertTriangle, Inbox, RefreshCw } from 'lucide-react';
+import { AlertTriangle, Inbox, RefreshCw, SearchX } from 'lucide-react';
 
 /** Initial loading state with spinner + text. */
 export function LoadingState({ label }: { label?: string }) {
@@ -23,14 +23,39 @@ export function EmptyState({
   body?: string;
   action?: ReactNode;
 }) {
+  return (
+    <div className="state-box" style={{ textAlign: 'center', padding: 'var(--space-6)' }}>
+      <div className="state-box__icon" aria-hidden="true" style={{ margin: '0 auto var(--space-4)' }}>
+        <Inbox size={48} style={{ opacity: 0.5 }} />
+      </div>
+      <h2 style={{ marginBottom: 'var(--space-2)' }}>{title}</h2>
+      {body ? <p className="text-sm muted" style={{ marginBottom: 'var(--space-6)' }}>{body}</p> : null}
+      {action}
+    </div>
+  );
+}
+
+/**
+ * Solution-oriented Not Found state.
+ * Instead of an error, it provides a way forward.
+ */
+export function NotFoundState({
+  title,
+  body,
+  action,
+}: {
+  title?: string;
+  body?: string;
+  action?: ReactNode;
+}) {
   const { t } = useTranslation();
   return (
-    <div className="state-box">
-      <div className="state-box__icon" aria-hidden="true">
-        <Inbox size={26} />
+    <div className="state-box" style={{ textAlign: 'center', padding: 'var(--space-6)' }}>
+      <div className="state-box__icon" aria-hidden="true" style={{ margin: '0 auto var(--space-4)' }}>
+        <SearchX size={48} style={{ opacity: 0.5 }} />
       </div>
-      <h2>{title || t('states.emptyTitle')}</h2>
-      {body ? <p className="text-sm">{body}</p> : null}
+      <h2 style={{ marginBottom: 'var(--space-2)' }}>{title ?? t('states.notFoundTitle')}</h2>
+      {body ? <p className="text-sm muted" style={{ marginBottom: 'var(--space-6)' }}>{body}</p> : <p className="text-sm muted" style={{ marginBottom: 'var(--space-6)' }}>{t('states.notFoundBody')}</p>}
       {action}
     </div>
   );
@@ -38,7 +63,6 @@ export function EmptyState({
 
 /**
  * Recoverable error state with a retry button.
- * `errorKey` is an i18n key (services throw i18n keys, not raw messages).
  */
 export function ErrorState({
   errorKey,

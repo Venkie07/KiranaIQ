@@ -97,14 +97,19 @@ export function DashboardScreen() {
 
   // Attention list: out-of-stock first, then expiring today/overdue, then low.
   const attention: { key: string; text: string; to: string; tone: string }[] = [];
-  for (const item of data.lowStock.slice(0, 3)) {
+
+  // 1. Out-of-stock products (Critical)
+  const outOfStock = data.lowStock.filter(item => item.status === 'out');
+  for (const item of outOfStock.slice(0, 3)) {
     attention.push({
-      key: `low-${item.variantId}`,
-      text: `${item.productName} · ${t('dashboard.lowStockItem', { count: item.currentStock })}`,
+      key: `out-${item.variantId}`,
+      text: `${item.productName} · ${t('dashboard.outOfStock')}`,
       to: `/products/${item.productId}`,
-      tone: item.status === 'out' ? 'danger' : 'warning',
+      tone: 'danger',
     });
   }
+
+  // 2. Expiring or Expired (Critical/Warning)
   for (const item of data.expiry.slice(0, 3)) {
     attention.push({
       key: `exp-${item.batchId}`,
@@ -114,6 +119,17 @@ export function DashboardScreen() {
           : `${item.productName} · ${t('dashboard.expiringItem', { days: item.daysUntilExpiry })}`,
       to: '/expiry',
       tone: item.risk === 'expired' || item.risk === 'critical' ? 'danger' : 'warning',
+    });
+  }
+
+  // 3. Low stock (Warning)
+  const lowStockOnly = data.lowStock.filter(item => item.status === 'low');
+  for (const item of lowStockOnly.slice(0, 3)) {
+    attention.push({
+      key: `low-${item.variantId}`,
+      text: `${item.productName} · ${t('dashboard.lowStockItem', { count: item.currentStock })}`,
+      to: `/products/${item.productId}`,
+      tone: 'warning',
     });
   }
 
@@ -179,15 +195,15 @@ export function DashboardScreen() {
 
       {/* Quick actions — biggest buttons, near the top on mobile */}
       <section className="section" aria-label={t('dashboard.quickActions')}>
-        <div className="grid-cards">
-          {quickActions.map(({ to, label, Icon }) => (            <Link
+        <div className="dashboard-quick-actions">
+          {quickActions.map(({ to, label, Icon }) => (
+            <Link
               key={to}
               to={to}
-              className="btn btn--primary"
-              style={{ flexDirection: 'column', minHeight: 88, gap: 6, textDecoration: 'none' }}
+              className="dashboard-quick-action btn btn--primary"
             >
               <Icon size={24} aria-hidden="true" />
-              <span style={{ fontSize: 'var(--text-sm)' }}>{label}</span>
+              <span className="dashboard-quick-action__label">{label}</span>
             </Link>
           ))}
         </div>
@@ -214,7 +230,7 @@ export function DashboardScreen() {
       <section className="card section">
         <div className="card__title">
           {t('dashboard.inventoryValue')}
-          <span className="badge badge--demo">{t('common.demoBadge')}</span>
+          {data.demoDataPresent && <span className="badge badge--demo">{t('common.demoBadge')}</span>}
         </div>
         <p className="stat-card__value">
           {data.inventoryValue != null
@@ -265,7 +281,7 @@ export function DashboardScreen() {
       <section className="card section" aria-labelledby="recent-sales-heading">
         <div className="card__title" id="recent-sales-heading">
           {t('dashboard.recentSales')}
-          <Link to="/movements" className="text-sm">
+          <Link to="/sales" className="text-sm">
             {t('dashboard.viewAll')}
           </Link>
         </div>

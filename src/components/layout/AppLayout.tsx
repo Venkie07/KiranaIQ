@@ -24,7 +24,7 @@ export function AppLayout() {
   const links = [
     { to: '/', label: t('navigation.dashboard'), Icon: House, end: true },
     { to: '/products', label: t('navigation.products'), Icon: Boxes },
-    { to: '/sales/new', label: t('navigation.sales'), Icon: PackagePlus, accent: true },
+    { to: '/sales', label: t('navigation.sales'), Icon: PackagePlus, accent: true },
     { to: '/restock', label: t('navigation.restock'), Icon: RefreshCcw },
     { to: '/settings', label: t('navigation.settings'), Icon: Settings },
   ];

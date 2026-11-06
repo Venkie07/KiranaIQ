@@ -9,6 +9,7 @@ import { useToast } from '@/hooks/useToast';
 import { getServices } from '@/services/serviceFactory';
 import { formatMoney } from '@/domain/money';
 import type { RestockPlan } from '@/domain/types';
+import { restockReasonTranslationKey } from './restockTranslations';
 
 export function RestockScreen() {
   const { t } = useTranslation();
@@ -71,6 +72,7 @@ export function RestockScreen() {
       await getServices().restock.save(confirmed);
       toast.push('success', t('restock.planConfirmed'));
       setPlan(confirmed);
+      setPhase('done');
     } catch (err) {
       console.error('[restock] confirm failed', err);
       setErrorKey('errors.dbWrite');
@@ -127,13 +129,12 @@ export function RestockScreen() {
   if (phase === 'done') {
     return (
       <>
-        <PageHeader title={t('restock.planConfirmed')} />
+        <PageHeader title={t('restock.planConfirmedTitle')} />
         <div className="card stack" role="status">
           <div className="row" style={{ gap: 'var(--space-2)', color: 'var(--color-success)' }}>
             <CheckCircle2 size={28} aria-hidden="true" />
-            <h2>{t('restock.planConfirmed')}</h2>
+            <p className="text-sm">{t('restock.planConfirmedNote')}</p>
           </div>
-          <p className="muted text-sm">{t('restock.planConfirmed')}</p>
           <hr className="divider" />
           <h3 style={{ fontSize: 'var(--text-base)' }}>{t('restock.suggestedProducts')}</h3>
           <ul className="stack stack--tight" style={{ listStyle: 'none', margin: 0, padding: 0 }}>
@@ -276,7 +277,7 @@ export function RestockScreen() {
                 <div className="list-row__main">
                   <div className="list-row__title">{item.productName} <span className="muted">({item.variantName})</span></div>
                   <div className="list-row__meta">
-                    {item.reasons.map((r) => <span key={r} className="badge badge--neutral mr-1">{t(`restock.reason${r.charAt(0).toUpperCase() + r.slice(1)}`)}</span>)}
+                    {item.reasons.map((r) => <span key={r} className="badge badge--neutral mr-1">{t(restockReasonTranslationKey(r))}</span>)}
                   </div>
                 </div>
               </li>

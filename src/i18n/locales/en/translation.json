@@ -104,6 +104,7 @@
     "lowStockItem": "Only {{count}} left",
     "expiringItem": "Expires in {{days}} days",
     "expiredItem": "Already expired",
+    "outOfStock": "Out of stock",
     "offlineBanner": "You are offline. Everything still works and saves on this device."
   },
   "products": {
@@ -129,6 +130,11 @@
     "viewDetails": "View details",
     "empty": "No products yet. Add your first product to begin.",
     "emptySearch": "No products match your search.",
+    "createNewProduct": "Create new product",
+    "deleteTitle": "Delete product",
+    "deleteBody": "Delete {{name}}? This cannot be undone.",
+    "deleteSuccess": "Product deleted.",
+    "itemsFound": "{{count}} items found",
     "variantCount": "{{count}} pack size",
     "perUnit": "per {{unit}}"
   },
@@ -141,6 +147,8 @@
     "localDisplayNameHint": "Optional. Your original name is never changed.",
     "category": "Category",
     "unit": "Unit",
+    "variantsTitle": "Product variants",
+    "variantIndex": "Variant {{index}}",
     "variantName": "Pack size label",
     "variantNamePlaceholder": "e.g. 1 kg pack",
     "packSize": "Pack size (in {{unit}})",
@@ -160,6 +168,9 @@
   },
   "productDetail": {
     "productInfo": "Product information",
+    "financials": "Financials",
+    "unitProfit": "Profit per unit",
+    "marginPercentage": "Profit margin",
     "variants": "Pack sizes",
     "currentStock": "Current stock",
     "usableStock": "Usable stock",
@@ -196,7 +207,17 @@
     "stockAfter": "Stock after sale: {{count}}",
     "quantityMinus": "Reduce quantity",
     "quantityPlus": "Increase quantity",
-    "clearCart": "Clear cart"
+    "clearCart": "Clear cart",
+    "historyTitle": "Sales History",
+    "historySearchPlaceholder": "Search by product or transaction ID",
+    "historySource": "Transaction source",
+    "historyReal": "Recorded sales",
+    "historyDateFrom": "From date",
+    "historyDateTo": "To date",
+    "historyTransaction": "Transaction ID",
+    "historyEmpty": "No sales recorded yet",
+    "historyEmptyBody": "Recorded sales will appear here.",
+    "historyNoResults": "No sales match the current filters."
   },
   "purchases": {
     "receiveStock": "Receive Stock",
@@ -302,6 +323,8 @@
     "draftPlan": "Save as draft plan",
     "planSaved": "Draft plan saved on this device.",
     "confirmPlan": "Confirm plan",
+    "planConfirmedTitle": "Plan confirmed",
+    "planConfirmedNote": "No orders are placed automatically.",
     "planConfirmed": "Plan confirmed. No orders are placed automatically.",
     "assumptions": "How this was calculated",
     "assumptionDemand": "Average daily sales from the last {{days}} days",
@@ -316,6 +339,8 @@
   },
   "settings": {
     "title": "Settings",
+    "general": "General",
+    "defaults": "Defaults",
     "language": "Language",
     "theme": "Appearance",
     "currency": "Currency",
@@ -489,7 +514,9 @@
     "emptyTitle": "Nothing here yet",
     "errorTitle": "Something went wrong",
     "noResults": "No results",
-    "retry": "Try again"
+    "retry": "Try again",
+    "notFoundTitle": "Product not found",
+    "notFoundBody": "We couldn't find the product you are looking for. It may have been deleted or moved."
   },
   "categories": {
     "rice-grains": "Rice & grains",

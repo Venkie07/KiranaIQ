@@ -32,17 +32,28 @@ export function ProductDetailScreen() {
   const load = useCallback(() => {
     setErrorKey(null);
     setDetail(null);
-    getServices()
-      .products.getDetail(productId)
-      .then((result) => {
-        if (!result) setErrorKey('errors.notFound');
-        else setDetail(result);
-      })
-      .catch((err: unknown) => {
+    void (async () => {
+      try {
+        const services = getServices();
+        let result = await services.products.getDetail(productId);
+
+        // Small retry for eventual consistency in IndexedDB
+        if (!result) {
+          await new Promise(resolve => setTimeout(resolve, 100));
+          result = await services.products.getDetail(productId);
+        }
+
+        if (!result) {
+          setErrorKey('errors.notFound');
+        } else {
+          setDetail(result);
+        }
+      } catch (err) {
         // eslint-disable-next-line no-console
         console.error('[product-detail] load failed', err);
         setErrorKey('errors.dbInit');
-      });
+      }
+    })();
   }, [productId]);
 
   useEffect(load, [load]);

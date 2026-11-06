@@ -49,6 +49,10 @@ export class KiranaDB extends Dexie {
       pinCredentials: 'id',
       meta: 'id',
     });
+    this.version(2).stores({
+      stockMovements: 'id, productId, variantId, movementType, timestamp, [variantId+timestamp]',
+      batches: 'id, productId, variantId, expiryDate, receivedAt',
+    });
   }
 }
 
